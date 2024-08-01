@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1070528246409",
+    "project_id": "usman-todo-app",
+    "storage_bucket": "usman-todo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070528246409:android:1683d0780612ad21a58c58",
+        "android_client_info": {
+          "package_name": "com.example.b2_backend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4a8f6aHxAQplJWvP5TByntLKpwX7Pomk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070528246409:android:3fb1e2f2a2213b0ba58c58",
+        "android_client_info": {
+          "package_name": "com.example.usman_todo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4a8f6aHxAQplJWvP5TByntLKpwX7Pomk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
