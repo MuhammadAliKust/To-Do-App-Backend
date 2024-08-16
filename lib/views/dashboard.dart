@@ -1,7 +1,11 @@
 import 'package:b2_backend/models/task.dart';
 import 'package:b2_backend/services/task.dart';
+import 'package:b2_backend/views/get_completed_task.dart';
+import 'package:b2_backend/views/get_task.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'get_incompleted_task.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -31,23 +35,51 @@ class DashboardView extends StatelessWidget {
                             context.watch<List<TaskModel>>();
                         return Column(
                           children: [
-                            Text(
-                              "All Task: ${allTaskList.length}",
-                              style: TextStyle(fontSize: 20),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GetAllTaskView()));
+                              },
+                              child: Text(
+                                "All Task: ${allTaskList.length}",
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Text(
-                              "Completed Task: ${completedTaskList.length}",
-                              style: TextStyle(fontSize: 20),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GetCompletedTaskView()));
+                              },
+                              child: Text(
+                                "Completed Task: ${completedTaskList.length}",
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Text(
-                              "In Completed Task: ${inCompletedTaskList.length}",
-                              style: TextStyle(fontSize: 20),
+
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GetInCompletedTaskView()));
+                              },
+                              child: Text(
+                                "In Completed Task: ${inCompletedTaskList.length}",
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         );
