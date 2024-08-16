@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 class CreateTaskView extends StatefulWidget {
-  CreateTaskView({super.key});
+  final bool isUpdateMode;
+  final TaskModel model;
+
+  CreateTaskView({super.key, required this.isUpdateMode, required this.model});
 
   @override
   State<CreateTaskView> createState() => _CreateTaskViewState();
@@ -18,12 +21,23 @@ class _CreateTaskViewState extends State<CreateTaskView> {
   bool isLoading = false;
 
   @override
+  void initState() {
+    if (widget.isUpdateMode) {
+      titleController =
+          TextEditingController(text: widget.model.title.toString());
+      descriptionController =
+          TextEditingController(text: widget.model.description.toString());
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LoadingOverlay(
       isLoading: isLoading,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("  Create Task"),
+          title: Text(widget.isUpdateMode ? "Update Task" : "Create Task"),
         ),
         body: Column(
           children: [
@@ -46,22 +60,43 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                   try {
                     isLoading = true;
                     setState(() {});
-                    await TaskServices()
-                        .createTask(TaskModel(
-                            title: titleController.text,
-                            isCompleted: false,
-                            description: descriptionController.text))
-                        .then((value) {
-                      isLoading = false;
-                      setState(() {});
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text("Task has been created successfully"),
-                            );
-                          });
-                    });
+                    if (widget.isUpdateMode) {
+                      await TaskServices()
+                          .updateTask(TaskModel(
+                              title: titleController.text,
+                              docId: widget.model.docId.toString(),
+                              description: descriptionController.text))
+                          .then((value) {
+                        isLoading = false;
+                        setState(() {});
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title:
+                                    Text("Task has been update successfully"),
+                              );
+                            });
+                      });
+                    } else {
+                      await TaskServices()
+                          .createTask(TaskModel(
+                              title: titleController.text,
+                              isCompleted: false,
+                              description: descriptionController.text))
+                          .then((value) {
+                        isLoading = false;
+                        setState(() {});
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title:
+                                    Text("Task has been created successfully"),
+                              );
+                            });
+                      });
+                    }
                   } catch (e) {
                     isLoading = false;
                     setState(() {});
@@ -69,7 +104,8 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                         .showSnackBar(SnackBar(content: Text(e.toString())));
                   }
                 },
-                child: Text("Create Task"))
+                child:
+                    Text(widget.isUpdateMode ? "Update Task" : "Create Task"))
           ],
         ),
       ),

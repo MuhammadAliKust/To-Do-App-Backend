@@ -16,7 +16,11 @@ class GetInCompletedTaskView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CreateTaskView()));
+              MaterialPageRoute(builder: (context) => CreateTaskView(
+
+                isUpdateMode: false,
+                model: TaskModel(),
+              )));
         },
         child: Icon(Icons.add),
       ),

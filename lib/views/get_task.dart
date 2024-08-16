@@ -18,8 +18,13 @@ class GetAllTaskView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CreateTaskView()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CreateTaskView(
+                        isUpdateMode: false,
+                        model: TaskModel(),
+                      )));
         },
         child: Icon(Icons.add),
       ),
@@ -35,22 +40,31 @@ class GetAllTaskView extends StatelessWidget {
                   leading: Icon(Icons.task),
                   title: Text(taskList[i].title.toString()),
                   subtitle: Text(taskList[i].description.toString()),
-                  trailing: CupertinoSwitch(
-                      value: taskList[i].isCompleted!,
-                      onChanged: (val) async {
-                        if (taskList[i].isCompleted == true) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content:
-                                  Text("Task cannot be makr as in complete.")));
-                          return;
-                        }
-                        try {
-                          await TaskServices()
-                              .markTaskAsComplete(taskList[i].docId.toString());
-                        } catch (e) {
-                          log(e.toString());
-                        }
-                      }),
+                  trailing: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateTaskView(
+                                    isUpdateMode: true, model: taskList[i])));
+                      },
+                      icon: Icon(Icons.edit)),
+                  // trailing: CupertinoSwitch(
+                  //     value: taskList[i].isCompleted!,
+                  //     onChanged: (val) async {
+                  //       if (taskList[i].isCompleted == true) {
+                  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //             content:
+                  //                 Text("Task cannot be makr as in complete.")));
+                  //         return;
+                  //       }
+                  //       try {
+                  //         await TaskServices()
+                  //             .markTaskAsComplete(taskList[i].docId.toString());
+                  //       } catch (e) {
+                  //         log(e.toString());
+                  //       }
+                  //     }),
                   // trailing: IconButton(
                   //     onPressed: () async {
                   //       try {
