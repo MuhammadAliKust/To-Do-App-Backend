@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:b2_backend/models/task.dart';
 import 'package:b2_backend/services/task.dart';
 import 'package:b2_backend/views/create_task.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,16 +35,32 @@ class GetAllTaskView extends StatelessWidget {
                   leading: Icon(Icons.task),
                   title: Text(taskList[i].title.toString()),
                   subtitle: Text(taskList[i].description.toString()),
-                  trailing: IconButton(
-                      onPressed: () async {
+                  trailing: CupertinoSwitch(
+                      value: taskList[i].isCompleted!,
+                      onChanged: (val) async {
+                        if (taskList[i].isCompleted == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("Task cannot be makr as in complete.")));
+                          return;
+                        }
                         try {
                           await TaskServices()
-                              .deleteTask(taskList[i].docId.toString());
+                              .markTaskAsComplete(taskList[i].docId.toString());
                         } catch (e) {
                           log(e.toString());
                         }
-                      },
-                      icon: Icon(Icons.delete)),
+                      }),
+                  // trailing: IconButton(
+                  //     onPressed: () async {
+                  //       try {
+                  //         await TaskServices()
+                  //             .deleteTask(taskList[i].docId.toString());
+                  //       } catch (e) {
+                  //         log(e.toString());
+                  //       }
+                  //     },
+                  //     icon: Icon(Icons.delete)),
                 );
               });
         },
