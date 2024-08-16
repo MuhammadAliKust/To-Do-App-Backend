@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:b2_backend/models/task.dart';
 import 'package:b2_backend/services/task.dart';
 import 'package:b2_backend/views/create_task.dart';
@@ -32,7 +34,16 @@ class GetAllTaskView extends StatelessWidget {
                   leading: Icon(Icons.task),
                   title: Text(taskList[i].title.toString()),
                   subtitle: Text(taskList[i].description.toString()),
-                  trailing: Icon(Icons.delete),
+                  trailing: IconButton(
+                      onPressed: () async {
+                        try {
+                          await TaskServices()
+                              .deleteTask(taskList[i].docId.toString());
+                        } catch (e) {
+                          log(e.toString());
+                        }
+                      },
+                      icon: Icon(Icons.delete)),
                 );
               });
         },

@@ -23,7 +23,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
       isLoading: isLoading,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Create Task"),
+          title: Text("  Create Task"),
         ),
         body: Column(
           children: [

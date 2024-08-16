@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:b2_backend/models/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -5,9 +7,11 @@ import 'package:firebase_core/firebase_core.dart';
 class TaskServices {
   //Create Task
   Future createTask(TaskModel model) async {
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('taskCollection').doc();
     return await FirebaseFirestore.instance
-        .collection('taskCollection')
-        .add(model.toJson());
+        .collection('taskCollection').doc(docRef.id)
+        .set(model.toJson(docRef.id));
   }
 
   //Update Task
