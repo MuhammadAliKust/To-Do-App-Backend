@@ -1,6 +1,9 @@
 import 'package:b2_backend/views/create_task.dart';
 import 'package:b2_backend/views/dashboard.dart';
+import 'package:b2_backend/views/forgot_pwd.dart';
 import 'package:b2_backend/views/get_task.dart';
+import 'package:b2_backend/views/login.dart';
+import 'package:b2_backend/views/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: GetAllTaskView(),
+      home: LoginView(),
     );
   }
 }
