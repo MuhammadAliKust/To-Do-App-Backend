@@ -2,6 +2,8 @@ import 'package:b2_backend/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
+import 'get_task.dart';
+
 class LoginView extends StatefulWidget {
   LoginView({super.key});
 
@@ -44,6 +46,7 @@ class _LoginViewState extends State<LoginView> {
                         .then((val) {
                       isLoading = false;
                       setState(() {});
+
                       if(val!.emailVerified == false){
                         showDialog(
                             context: context,
@@ -54,13 +57,11 @@ class _LoginViewState extends State<LoginView> {
                             });
                       }
                     else{
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                content: Text("Logged In"),
-                              );
-                            });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GetAllTaskView()));
+
                       }
                     });
                   } catch (e) {

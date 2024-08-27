@@ -7,6 +7,7 @@ import 'dart:convert';
 class TaskModel {
   final String? title;
   final String? description;
+  final String? userID;
   final bool? isCompleted;
   final int? createdAt;
   final String? docId;
@@ -15,6 +16,7 @@ class TaskModel {
     this.title,
     this.description,
     this.isCompleted,
+    this.userID,
     this.createdAt,
     this.docId,
   });
@@ -24,6 +26,7 @@ class TaskModel {
         description: json["description"],
         isCompleted: json["isCompleted"],
         createdAt: json["createdAt"],
+    userID: json["userID"],
         docId: json["docID"],
       );
 
@@ -31,6 +34,7 @@ class TaskModel {
         "title": title,
         "description": description,
         "isCompleted": isCompleted,
+        "userID": userID,
         "createdAt": DateTime.now().millisecondsSinceEpoch,
         "docID": taskID,
       };

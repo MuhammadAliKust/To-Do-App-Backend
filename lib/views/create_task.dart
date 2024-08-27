@@ -1,5 +1,6 @@
 import 'package:b2_backend/models/task.dart';
 import 'package:b2_backend/services/task.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
@@ -83,6 +84,8 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                           .createTask(TaskModel(
                               title: titleController.text,
                               isCompleted: false,
+                              userID: FirebaseAuth.instance.currentUser!.uid
+                                  .toString(),
                               description: descriptionController.text))
                           .then((value) {
                         isLoading = false;
